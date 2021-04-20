@@ -12,10 +12,9 @@ import dash_table
 from dash.dependencies import Input, Output
 from datetime import datetime, timedelta, date
 import boto3
-import seaborn as sns
+
 from dash_table.Format import Format
-import statsmodels.api as sm
-from sklearn.preprocessing import StandardScaler
+
 from util.dash_layout import external_stylesheets, update_fig
 import pandas as pd
 import psycopg2
