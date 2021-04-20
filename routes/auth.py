@@ -1,6 +1,5 @@
 from flask import render_template, request, redirect, url_for, flash, abort
-from forms.login_form import LoginForm
-from forms.register_form import RegisterForm
+
 from models.user import User
 from db.db import db
 from flask_login import login_user, current_user, logout_user
@@ -43,4 +42,4 @@ def iswindows():
 def index():
     return render_template("index.html", title="Hope Now")
 def ask_help():
-    return render_template("ask_help.html", title="Hope Now")
+    return render_template("ask_help.html", title="Ask Help")
