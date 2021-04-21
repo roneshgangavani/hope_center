@@ -117,6 +117,10 @@ covid_volunteer.layout = html.Div(
                              'label': 'Remdesivir',
                              'value': 'Remdesivir'
                          },
+                          {
+                             'label': 'Toclizumab',
+                             'value': 'Toclizumab'
+                         },
                          {
                              'label': 'Find out donors to help',
                              'value': 'Find out donors to help'

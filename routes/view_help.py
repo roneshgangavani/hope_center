@@ -73,6 +73,10 @@ view_help.layout = html.Div(
                              'label': 'Remdesivir',
                              'value': 'Remdesivir'
                          },
+                          {
+                             'label': 'Toclizumab',
+                             'value': 'Toclizumab'
+                         },
 
                          ],
                      value='Select')
