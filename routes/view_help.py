@@ -36,8 +36,16 @@ view_help = dash.Dash(__name__,
                           external_stylesheets=external_stylesheets)    
 view_help.layout = html.Div(
     [
-    html.H3([" Please Become Helping Hand - Search Here and Contant to Needed one"
-             ], className="text-center"),
+    
+    html.H3(["Please Become Helping Hand - Search Here and Contact to Them", html.Em(
+        className="icon ni ni-question ml-1",
+        id="tooltip-target",
+    )], className="text-center"),
+    dbc.Tooltip(
+        "Thank you for helping to needed one. This will be your decision to help them so you should contact properly and get clear to situaltion. we just provide to platform to find which other, we own nothing! ",
+        target="tooltip-target",
+        className="tool-tip-width"
+    ),
     html.Div([
         html.Label("Select District  :"),
         dcc.Dropdown(id='demo-dropdown_dis',
@@ -49,18 +57,28 @@ view_help.layout = html.Div(
     html.Div([
         html.Label("Type of Help:"),
         dcc.Dropdown(id='demo-dropdown_tpye',
-                 options=[
+                  options=[
                          {
                              'label': 'Hospital Beds',
                              'value': 'Hospital Beds'
                          }, {
-                             'label': 'Blood Group',
-                             'value': 'Blood Group'
-                         }],
+                             'label': 'Blood Plasma',
+                             'value': 'Blood Plasma'
+                         },
+                         {
+                             'label': 'Oxygen Cylinders',
+                             'value': 'Oxygen Cylinders'
+                         },
+                          {
+                             'label': 'Remdesivir',
+                             'value': 'Remdesivir'
+                         },
+
+                         ],
                      value='Select')
     ],
     style={'width': '50%', 'display': 'inline-block', 'marginTop': 5, 'marginBottom': 15}),
-    html.Button('Submit', id='button'),
+    html.Button('Search', id='button'),
     html.Div(id='dd-output-container'),
 ])
 @view_help.callback(
@@ -72,7 +90,7 @@ view_help.layout = html.Div(
 )
 def update_output(district,type_help,n_clicks):
     df_user=pd.read_csv("data/user_ask_help.csv")
-    df_user.columns=['State','District','Want Needed','Contact No.','Message']
+    df_user.columns=['Date','State','District','Want Needed','Contact No.','Message']
     print(df_user)
 
     if n_clicks != None:

@@ -41,5 +41,9 @@ def iswindows():
 
 def index():
     return render_template("index.html", title="Hope Now")
-def ask_help():
+def covid_ask_help():
     return render_template("ask_help.html", title="Ask Help")
+def covid_view_help():
+    return render_template("view_help.html", title="View Help")
+def covid_volunterr_help():
+    return render_template("volunteer.html", title="Volunteer Registration")

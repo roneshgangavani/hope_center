@@ -1,9 +1,5 @@
 {% include "header.html" %}
-<!--[if lt IE 9]>
-<script type="text/javascript" src="js/html5.js"></script>
-<style type="text/css">.box1 figure{behavior:url("js/PIE.htc");}</style>
-<![endif]-->
-</head>
+
 <body id="page1">
 <div class="body1">
   <div class="main">
@@ -15,50 +11,31 @@
           <ul id="top_nav">
             <li><a href="/"><img src="static/images/top_icon1.gif" alt=""></a></li>
             <li><a href="#"><img src="static/images/top_icon2.gif" alt=""></a></li>
-            <li class="end"><a href="contact.html"><img src="static/images/top_icon3.gif" alt=""></a></li>
+            <li class="end"><a href="#"><img src="static/images/top_icon3.gif" alt=""></a></li>
           </ul>
         </nav>
         <nav>
           <ul id="menu">
-            <li id="menu_active"><a href="/">Home</a></li>
-            <li><a href="/covid/ask_help/">Ask Help</a></li>
-            <li><a href="/covid/view_available_help/">View Avaiable Help</a></li>
-            <li><a href="/covid/volunteer_regi/">Become volunteer</a></li>
+            <li><a href="/">Home</a></li>
+            <li ><a href="/covid/ask_help/">Ask Help</a></li>
+            <li id="menu_active" ><a href="/covid/view_available_help/">View Avaiable Help</a></li>
+            <li ><a href="/covid/volunteer_regi/">Become volunteer</a></li>
             <li><a href="#"> Contact</a></li>
           </ul>
         </nav>
       </div>
       <div class="slider">
-        <ul class="items">
-          <li> <img src="static/images/img1.jpg" alt="">
-            <div class="banner">
-              <div class="wrapper"><span>“Our<em>Mission</em>is to<em>Help</em></span></div>
-              <div class="wrapper"><strong>Those Who<em>Need</em>It”</strong></div>
-            </div>
-          </li>
-          <li> <img src="static/images/img2.jpg" alt="">
-            <div class="banner">
-              <div class="wrapper"><span>“LETS HELP NEEDED ONE</span></div>
-              <div class="wrapper"><strong>AND BEAT COVID-19”</strong></div>
-            </div>
-          </li>
-          <li> <img src="static/images/img3.jpg" alt="">
-            <div class="banner">
-              <div class="wrapper"><span>“TOGETHER we can CHANGE</span></div>
-              <div class="wrapper"><strong>Many  LIVES”</strong></div>
-            </div>
-          </li>
-        </ul>
-        <ul class="pagination">
-          <li id="banner1"><a href="/covid/ask_help/">POST<span>REQUIREMENT</span></a></li>
-          
-          <li id="banner3"><a href="/covid/view_available_help/">Help<span>NEEDED ONE</span></a></li>
-          <li id="banner2"><a href="/covid/volunteer_regi/">join<span>volunteer</span></a></li>
-        </ul>
+        <iframe
+        src="/hopecenter/view_help/"
+        class="dash-iframe",
+        height="1000vh"
+        width="950vh"
+        >
+    </iframe>
       </div>
 
     </header>
-    <iframe
+    <!-- <iframe
         src="/covid_requirments/user_post/"
         class="dash-iframe",
         height="300vh"
@@ -68,14 +45,8 @@
     <div>
 
     </div>
-    <iframe
-      src="/hopecenter/view_help/"
-      class="dash-iframe",
-      height="300vh"
-      width="950vh"
-      >
-  </iframe>
-
+   
+ -->
 
     <!-- / header -->
     <!-- content -->
@@ -83,13 +54,6 @@
     <!-- / content -->
     <!-- footer -->
     <footer>
-      <div class="wrapper"> <a href="static/index.html" id="footer_logo"><span>Hope</span>Center</a>
-        <ul id="icons">
-          <li><a href="#" class="normaltip"><img src="static/images/icon1.gif" alt=""></a></li>
-          <li><a href="#" class="normaltip"><img src="static/images/icon2.gif" alt=""></a></li>
-          <li><a href="#" class="normaltip"><img src="static/images/icon3.gif" alt=""></a></li>
-        </ul>
-      </div>
       <div class="wrapper">
   
         <!-- <nav>
@@ -104,7 +68,7 @@
         <div class="tel"><span></span>9574510371</div>
       </div>
       <div id="footer_text">Copyright &copy; <a href="https://www.linkedin.com/in/ronesh-gangavani/">Ronesh Gangavani</a> All Rights Reserved<br>
-        Design by <a target="_blank" href="http://www.templatemonster.com/"> Himself</a></div>
+        Design by <a target="_blank" href="#"> Himself</a></div>
     </footer>
     <!-- / footer -->
   </div>

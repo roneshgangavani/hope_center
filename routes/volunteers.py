@@ -25,19 +25,46 @@ from datetime import datetime
 from dateutil import relativedelta
 import pandas as pd
 pd.options.display.float_format = '{:.2f}'.format
-home_url = "/covid_requirments/user_post/"
+home_url = "/covid_requirments/volunteers/"
 from csv import writer
-covid_help = dash.Dash(__name__,
+covid_volunteer = dash.Dash(__name__,
                           server=app,
                           url_base_pathname=home_url,
                           external_stylesheets=external_stylesheets)
 
 df=pd.read_csv('data/state.csv')
 print(df)
-covid_help.layout = html.Div(
+covid_volunteer.layout = html.Div(
     [
-    html.H3(["Ask Help here"
+    html.H3(["Volunteer Registartion"
              ], className="text-center"),
+    html.Div([
+        html.Label("Full Name:"),
+    dcc.Input(
+            id="fullname",
+            type="text",
+            placeholder="Full Name",
+        )
+         ],
+    style={'width': '33%', 'display': 'inline-block', 'marginTop': 10, 'marginBottom': 1}),
+    html.Div([
+        html.Label(" Your Age:"),
+    dcc.Input(
+            id="age",
+            type="text",
+            placeholder="Age",
+        )
+    ],
+    style={'width': '33%', 'display': 'inline-block', 'marginTop': 10, 'marginBottom': 1}),
+    html.Div([
+        html.Label("Contact Details:"),
+    dcc.Input(
+            id="contact",
+            type="text",
+            placeholder="Whatsapp Num.",
+        )
+         ],
+    style={'width': '33%', 'display': 'inline-block', 'marginTop': 100, 'marginBottom': 1}),
     html.Div([
         html.Label("Select State :"),
         dcc.Dropdown(
@@ -46,7 +73,7 @@ covid_help.layout = html.Div(
                      'label': str(i).replace("_", " "), 'value': i} for i in df['state'].unique()],
                  value='Type here')
     ],
-    style={'width': '30%', 'display': 'inline-block', 'marginTop': 5, 'marginBottom': 15}),
+    style={'width': '25%', 'display': 'inline-block', 'marginTop': 5, 'marginBottom': 15}),
     html.Div([
         html.Label("Select District  :"),
         dcc.Dropdown(id='demo-dropdown_dis',
@@ -54,9 +81,25 @@ covid_help.layout = html.Div(
                      'label': str(i).replace("_", " "), 'value': i} for i in df['district'].unique()],
                  value='Type here')
     ],
-    style={'width': '30%', 'display': 'inline-block', 'marginTop': 5, 'marginBottom': 15}),   
+    style={'width': '25%', 'display': 'inline-block', 'marginTop': 5, 'marginBottom': 15}),   
     html.Div([
-        html.Label("Type of Help:"),
+        html.Label("Gender:"),
+        dcc.Dropdown(id='demo-dropdown_gen',
+                 options=[
+                         {
+                             'label': 'MALE',
+                             'value': 'M'
+                         }, {
+                             'label': 'FEMALE',
+                             'value': 'F'
+                         },
+                         ],
+                     value='Select')
+    ],
+    style={'width': '25%', 'display': 'inline-block', 'marginTop': 5, 'marginBottom': 15}),
+
+    html.Div([
+        html.Label("How you can help:"),
         dcc.Dropdown(id='demo-dropdown_tpye',
                  options=[
                          {
@@ -74,20 +117,20 @@ covid_help.layout = html.Div(
                              'label': 'Remdesivir',
                              'value': 'Remdesivir'
                          },
+                         {
+                             'label': 'Find out donors to help',
+                             'value': 'Find out donors to help'
+                         },
+                         {
+                             'label': 'other ways',
+                             'value': 'other ways'
+                         },
 
                          ],
                      value='Select')
     ],
-    style={'width': '30%', 'display': 'inline-block', 'marginTop': 5, 'marginBottom': 15}),
-    html.Div([
-        html.Label("Contact Details:"),
-    dcc.Input(
-            id="contact",
-            type="text",
-            placeholder="contanct no.",
-        )
-         ],
-    style={'width': '20%', 'display': 'inline-block', 'marginTop': 5, 'marginBottom': 20}),
+    style={'width': '25%', 'display': 'inline-block', 'marginTop': 5, 'marginBottom': 15}),
+    
     html.Div([
         html.Label("Your Message:"),
     dcc.Textarea(
@@ -97,25 +140,28 @@ covid_help.layout = html.Div(
     ),
       ],
     style={'width': '30%', 'display': 'inline-block', 'marginTop': 5, 'marginBottom': 15}),
-    html.Button('Submit', id='button'),
+    html.Button('Registration', id='button'),
     html.Div(id='dd-output-container'),
 ])
-@covid_help.callback(
+@covid_volunteer.callback(
     dash.dependencies.Output('dd-output-container', 'children'),
     [dash.dependencies.Input('demo-dropdown', 'value'),
     dash.dependencies.Input('demo-dropdown_dis', 'value'),
+    dash.dependencies.Input('fullname', 'value'),
+    dash.dependencies.Input('age', 'value'),
+    dash.dependencies.Input('demo-dropdown_gen', 'value'),
     dash.dependencies.Input('demo-dropdown_tpye', 'value'),
      dash.dependencies.Input('contact', 'value'),
      dash.dependencies.Input('textarea-example', 'value'),
      dash.dependencies.Input('button', 'n_clicks')]
 )
-def update_output_once(state,district,type_help,contact,msg,n_clicks):
-    file = open('data/user_ask_help.csv','a')
+def update_output_once(state,district,fullname,age,gen,type_help,contact,msg,n_clicks):
+    file = open('data/volunteers_details.csv','a')
     write = writer(file)
     today=date.today()
     if n_clicks != None:
-        if state != None and district != None and type_help != None and contact != None:
-            write.writerow([today,state,district,type_help,contact,msg])
+        if state != None and district != None and fullname != None and age != None and gen != None and type_help != None and contact != None:
+            write.writerow([today,state,district,fullname,age,gen,type_help,contact,msg])
             return html.Div(
                 html.H3(["Successfully Recorded"
                 ], className="text-center"),
