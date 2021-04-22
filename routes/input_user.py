@@ -78,8 +78,6 @@ covid_help.layout = html.Div(
                              'label': 'Toclizumab',
                              'value': 'Toclizumab'
                          },
-
-
                          ],
                      value='Select')
     ],
@@ -120,16 +118,23 @@ def update_output_once(state,district,type_help,contact,msg,n_clicks):
     today=date.today()
     if n_clicks != None:
         if state != None and district != None and type_help != None and contact != None:
-            write.writerow([today,state,district,type_help,contact,msg])
-            return html.Div(
-                html.H3(["Successfully Recorded"
-                ], className="text-center"),
+            print(len(contact))
+            if len(contact) == 10 and contact.isnumeric():
+                write.writerow([today,state,district,type_help,contact,msg])
+                return html.Div(
+                    html.H3(["Successfully Recorded: We will Verify Data Soon and Show to Public"
+                    ], className="text-center"),
+                )
+            else:
+                return html.Div(
+                    html.H3(["Data Not Recorded: Please Enter Valid Contact Number"
+                    ], className="text-center"),
 
-            )
+                )
         else:
-            return html.Div(
-                html.H3(["Not Recorded"
-                ], className="text-center"),
+                return html.Div(
+                    html.H3(["Data Not Recorded: Please Enter Valid Proper Details"
+                    ], className="text-center"),
 
-            )
+                )
     

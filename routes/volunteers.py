@@ -51,7 +51,7 @@ covid_volunteer.layout = html.Div(
         html.Label(" Your Age:"),
     dcc.Input(
             id="age",
-            type="text",
+            type="number",
             placeholder="Age",
         )
     ],
@@ -165,16 +165,24 @@ def update_output_once(state,district,fullname,age,gen,type_help,contact,msg,n_c
     today=date.today()
     if n_clicks != None:
         if state != None and district != None and fullname != None and age != None and gen != None and type_help != None and contact != None:
-            write.writerow([today,state,district,fullname,age,gen,type_help,contact,msg])
-            return html.Div(
-                html.H3(["Successfully Recorded"
-                ], className="text-center"),
+            if len(contact) == 10 and contact.isnumeric():
+                write.writerow([today,state,district,fullname,age,gen,type_help,contact,msg])
+                return html.Div(
+                    html.H3(["Registration Done"
+                    ], className="text-center"),
 
-            )
+                )
+            else:
+                return html.Div(
+                    html.H3(["Failed: Please Enter Valid Contact Number"
+                    ], className="text-center"),
+
+                )
         else:
-            return html.Div(
-                html.H3(["Not Recorded"
-                ], className="text-center"),
+                return html.Div(
+                    html.H3(["Failed: Please Enter Valid Proper Details"
+                    ], className="text-center"),
 
-            )
+                )
+    
     

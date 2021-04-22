@@ -93,7 +93,7 @@ view_help.layout = html.Div(
      dash.dependencies.Input('button', 'n_clicks')]
 )
 def update_output(district,type_help,n_clicks):
-    df_user=pd.read_csv("data/user_ask_help.csv")
+    df_user=pd.read_csv("data/user_verify.csv")
     df_user.columns=['Date','State','District','Want Needed','Contact No.','Message']
     print(df_user)
 
