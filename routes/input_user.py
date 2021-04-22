@@ -120,7 +120,7 @@ def update_output_once(state,district,type_help,contact,msg,n_clicks):
         if state != None and district != None and type_help != None and contact != None:
             print(len(contact))
             if len(contact) == 10 and contact.isnumeric():
-                write.writerow([today,state,district,type_help,contact,msg])
+                write.writerow([today,state,district,type_help,contact,msg,'active'])
                 return html.Div(
                     html.H3(["Successfully Recorded: We will Verify Data Soon and Show to Public"
                     ], className="text-center"),

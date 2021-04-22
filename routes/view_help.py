@@ -94,7 +94,9 @@ view_help.layout = html.Div(
 )
 def update_output(district,type_help,n_clicks):
     df_user=pd.read_csv("data/user_verify.csv")
-    df_user.columns=['Date','State','District','Want Needed','Contact No.','Message']
+    df_user.columns=['Date','State','District','Want Needed','Contact No.','Message','Status']
+    df_user.drop_duplicates(inplace=True)
+
     print(df_user)
 
     if n_clicks != None:
