@@ -294,7 +294,7 @@ def send_mail(receiver_email):
     
                 <!-- START CENTERED WHITE CONTAINER -->
                 <table role="presentation" class="main">
-                <div align="center"><img align="center" src="https://www.nobislabs.com/static/images/nobis_labs_logo.jpg" width ="60px" /></div>
+                <div align="center"><img align="center"  width ="60px" /></div>
                   <!-- START MAIN CONTENT AREA -->
                   <tr>
                     <td class="wrapper">
