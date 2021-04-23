@@ -12,9 +12,11 @@ import dash_table
 from dash.dependencies import Input, Output
 from datetime import datetime, timedelta, date
 import boto3
-
+import re
+import numpy as np
+from routes.patients_mail import send_mail
 from dash_table.Format import Format
-
+import numpy
 from util.dash_layout import external_stylesheets, update_fig
 import pandas as pd
 import psycopg2
@@ -34,6 +36,20 @@ covid_help = dash.Dash(__name__,
 
 df=pd.read_csv('data/state.csv')
 print(df)
+
+regex = '^(\w|\.|\_|\-)+[@](\w|\_|\-|\.)+[.]\w{2,3}$'
+def check_mail(email):
+    regex = '^(\w|\.|\_|\-)+[@](\w|\_|\-|\.)+[.]\w{2,3}$'
+    if(re.search(regex, email)):
+        return True
+    else:
+        return False
+def check_email_used(email):
+    df=pd.read_csv('data/user_ask_help.csv')
+    if email in df['email']:
+        return True
+    else:
+        return False
 covid_help.layout = html.Div(
     [
     html.H3(["Ask Help here"
@@ -90,7 +106,16 @@ covid_help.layout = html.Div(
             placeholder="contanct no.",
         )
          ],
-    style={'width': '20%', 'display': 'inline-block', 'marginTop': 5, 'marginBottom': 20}),
+    style={'width': '25%', 'display': 'inline-block', 'marginTop': 5, 'marginBottom': 20}),
+    html.Div([
+        html.Label("Email Address:"),
+    dcc.Input(
+            id="email",
+            type="email",
+            placeholder="email@email.com",
+        )
+         ],
+    style={'width': '25%', 'display': 'inline-block', 'marginTop': 5, 'marginBottom': 20}),
     html.Div([
         html.Label("Your Message:"),
     dcc.Textarea(
@@ -109,32 +134,55 @@ covid_help.layout = html.Div(
     dash.dependencies.Input('demo-dropdown_dis', 'value'),
     dash.dependencies.Input('demo-dropdown_tpye', 'value'),
      dash.dependencies.Input('contact', 'value'),
+     dash.dependencies.Input('email', 'value'),
      dash.dependencies.Input('textarea-example', 'value'),
      dash.dependencies.Input('button', 'n_clicks')]
 )
-def update_output_once(state,district,type_help,contact,msg,n_clicks):
-    file = open('data/user_ask_help.csv','a')
+def update_output_once(state,district,type_help,contact,email,msg,n_clicks):
+    file = open('data/user_verify.csv','a')
     write = writer(file)
     today=date.today()
+    print(email)
     if n_clicks != None:
-        if state != None and district != None and type_help != None and contact != None:
+        if state != None and district != None and type_help != None and contact != None and email != None:
             print(len(contact))
             if len(contact) == 10 and contact.isnumeric():
-                write.writerow([today,state,district,type_help,contact,msg,'active'])
-                return html.Div(
-                    html.H3(["Successfully Recorded: We will Verify Data Soon and Show to Public"
-                    ], className="text-center"),
+                if check_mail(email):
+                        write.writerow([today,state,district,type_help,contact,email,msg,'active'])
+                        # # otp=np.random.randint(1000,9999)
+                        try:
+                            send_mail(email)
+                        except Exception as ex:
+                            print(ex)    
+                        return html.Div(
+                            html.H3(["Successfully Recorded"
+                            ], style={'color': 'green','text-align': 'center'}),
+                        )
+                else:
+                    return html.Div(
+                    html.H3(["Data Not Recorded: Please Enter Valid Email ID"
+                    ], style={'color': 'red','text-align': 'center'})
+
                 )
             else:
                 return html.Div(
                     html.H3(["Data Not Recorded: Please Enter Valid Contact Number"
-                    ], className="text-center"),
+                    ],style={'color': 'red','text-align': 'center'})
 
                 )
         else:
                 return html.Div(
                     html.H3(["Data Not Recorded: Please Enter Valid Proper Details"
-                    ], className="text-center"),
+                    ], 
+                    style={'color': 'red','text-align': 'center'})
 
                 )
-    
+@covid_help.callback(
+    dash.dependencies.Output('dd-output-opt', 'children'),
+    [
+     dash.dependencies.Input('opt', 'value'),
+     dash.dependencies.Input('button1', 'n_clicks')]
+)
+def update_output_opt(opt,n_clicks):
+    if n_clicks != None:
+        return opt

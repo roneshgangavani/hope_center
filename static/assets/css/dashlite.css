@@ -3795,7 +3795,8 @@ a.bg-lighter:hover, a.bg-lighter:focus, button.bg-lighter:hover, button.bg-light
 .text-right { text-align: right !important; }
 
 .text-center { text-align: center !important; }
-
+.text-center-error { text-align: center !important; color: red !important; }
+.text-center-success { text-align: center !important; color: var(--blue) !important;; }
 @media (min-width: 420px) { .text-mb-left { text-align: left !important; }
   .text-mb-right { text-align: right !important; }
   .text-mb-center { text-align: center !important; } }

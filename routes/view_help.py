@@ -94,6 +94,8 @@ view_help.layout = html.Div(
 )
 def update_output(district,type_help,n_clicks):
     df_user=pd.read_csv("data/user_verify.csv")
+    print(df_user)
+    del df_user['email']
     df_user.columns=['Date','State','District','Want Needed','Contact No.','Message','Status']
     df_user.drop_duplicates(inplace=True)
 
