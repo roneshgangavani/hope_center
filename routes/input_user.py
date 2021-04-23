@@ -177,12 +177,4 @@ def update_output_once(state,district,type_help,contact,email,msg,n_clicks):
                     style={'color': 'red','text-align': 'center'})
 
                 )
-@covid_help.callback(
-    dash.dependencies.Output('dd-output-opt', 'children'),
-    [
-     dash.dependencies.Input('opt', 'value'),
-     dash.dependencies.Input('button1', 'n_clicks')]
-)
-def update_output_opt(opt,n_clicks):
-    if n_clicks != None:
-        return opt
+
