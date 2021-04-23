@@ -98,7 +98,7 @@ def update_output(district,type_help,n_clicks):
     del df_user['email']
     df_user.columns=['Date','State','District','Want Needed','Contact No.','Message','Status']
     df_user.drop_duplicates(inplace=True)
-
+    df_user=df_user.iloc[::-1]
     print(df_user)
 
     if n_clicks != None:
